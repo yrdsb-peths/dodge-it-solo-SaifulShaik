@@ -16,14 +16,25 @@ public class Balloon extends Actor
     public void act()
     {
         // Add your action code here.
-        move(3);
+        move(-3);
         
-        if(getX() >= 599) {
-            resetBalloon();
+        if (getX() <= 0) {
+            resetBomb();
+        }
+        
+        if (isTouching(Hero.class)) {
+            Gameover end = new Gameover();
+            getWorld().addObject(end, 100, 100);
+            getWorld().removeObject(this);
         }
     }
     
-    public void resetBalloon() {
-        setLocation(0, 200);
+    public void resetBomb() {
+        int num = Greenfoot.getRandomNumber(2);
+        if (num == 0) {
+            setLocation(500, 100);
+        } else {
+            setLocation(500, 300);
+        }
     }
 }
